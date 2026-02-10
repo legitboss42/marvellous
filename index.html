@@ -1,0 +1,788 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Social Media Portfolio</title>
+  <meta name="description" content="Social media portfolio with case studies, before/after, process, and contact." />
+
+  <!-- Optional serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --paper: #f6f2ea;
+      --ink: #171717;
+      --muted: rgba(23,23,23,.68);
+      --faint: rgba(23,23,23,.09);
+      --line: rgba(23,23,23,.18);
+
+      --serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+      --sans:  "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+    .page{
+      padding: 34px 0;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+    .page:last-child{ border-bottom: none; }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246,242,234,.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 0;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:baseline; gap: 10px;
+      font-family: var(--serif);
+    }
+    .brand strong{ font-size: 16px; font-weight: 700; }
+    .brand span{ font-size: 12px; color: var(--muted); font-family: var(--sans); }
+
+    .nav{
+      display:flex; gap: 12px; align-items:center; flex-wrap:wrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: inherit;
+      text-decoration:none;
+    }
+    .nav a:hover{ border-color: var(--line); background: rgba(255,255,255,.35); color: var(--ink); }
+
+    .overlay-title{
+      font-family: var(--serif);
+      font-style: italic;
+      text-align:center;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.15;
+      margin: 26px auto 16px;
+      max-width: 26ch;
+    }
+
+    .sub-center{
+      text-align:center;
+      color: var(--muted);
+      margin: 0 auto 18px;
+      max-width: 70ch;
+      line-height: 1.8;
+      font-size: 14.5px;
+    }
+
+    .section-tag{
+      font-family: var(--serif);
+      letter-spacing: .6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+    .big-faint{
+      position:absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -20px;
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: clamp(44px, 8vw, 110px);
+      color: var(--faint);
+      white-space: nowrap;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 20px;
+      align-items:start;
+    }
+    .grid-2.equal{ grid-template-columns: 1fr 1fr; }
+
+    .h2{
+      font-family: var(--serif);
+      font-size: 28px;
+      margin: 0 0 10px;
+    }
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14.5px;
+    }
+
+    .project-kicker{
+      font-family: var(--sans);
+      font-weight: 800;
+      letter-spacing: .12em;
+      font-size: 40px;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+    }
+    .label{
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 12px;
+    }
+    .meta{
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.75;
+      margin: 6px 0 0;
+    }
+    .meta-row{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap: 10px;
+      margin: 8px 0;
+    }
+
+    .media-row{
+      display:flex;
+      gap: 14px;
+      justify-content:flex-end;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .phone{
+      width: 210px;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.25));
+      position: relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .phone::before{
+      content:"";
+      position:absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(23,23,23,.12);
+    }
+    .caption-under{
+      width: 210px;
+      text-align:center;
+      font-family: var(--serif);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .img-block{
+      border: 1px dashed rgba(23,23,23,.35);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.35);
+      min-height: 260px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .badge-row{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .badge{
+      width: 74px;
+      height: 74px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.45);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      font-size: 11px;
+      color: var(--muted);
+      padding: 10px;
+    }
+
+    .timeline-wrap{
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+    .timeline-side{
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--serif);
+      font-size: 30px;
+      letter-spacing: .8px;
+      color: rgba(23,23,23,.55);
+      user-select:none;
+    }
+    .timeline{
+      position: relative;
+      padding-left: 22px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left: 6px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: rgba(23,23,23,.26);
+    }
+    .t-item{
+      position: relative;
+      padding: 10px 0 14px 0;
+    }
+    .t-item::before{
+      content:"";
+      position:absolute;
+      left: -3px;
+      top: 16px;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 2px solid rgba(23,23,23,.35);
+      background: var(--paper);
+    }
+    .t-title{
+      font-family: var(--serif);
+      font-size: 18px;
+      margin: 0 0 6px;
+    }
+    .t-text{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 14px;
+      max-width: 80ch;
+    }
+
+    .icons{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(23,23,23,.75);
+      text-decoration:none;
+    }
+    .icon svg{
+      width: 18px;
+      height: 18px;
+      display:block;
+    }
+    .email-pill{
+      margin-left: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,.35);
+    }
+
+    .reveal{ opacity:0; transform: translateY(10px); transition: .6s ease; }
+    .reveal.show{ opacity:1; transform:none; }
+
+    @media (max-width: 980px){
+      .grid-2{ grid-template-columns: 1fr; }
+      .timeline-wrap{ grid-template-columns: 1fr; }
+      .timeline-side{
+        writing-mode: horizontal-tb;
+        transform:none;
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+      .media-row{ justify-content:flex-start; }
+    }
+    @media (max-width: 520px){
+      .project-kicker{ font-size: 34px; }
+      .phone, .caption-under{ width: 180px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap row">
+      <div class="brand" aria-label="Site brand">
+        <strong>Ellios Omokhoghele Marvellous.</strong>
+        <span>• Social media portfolio</span>
+      </div>
+
+      <nav class="nav" aria-label="Page navigation">
+        <a href="#cover">Cover</a>
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- COVER -->
+  <section id="cover" class="page">
+    <div class="wrap" style="text-align:center;">
+
+      <h1 style="
+        font-family: var(--serif);
+        font-size: clamp(32px, 4.5vw, 48px);
+        margin: 10px 0 8px;
+        letter-spacing:-.4px;
+      ">
+        Social Media Work
+      </h1>
+
+      <p style="
+        color: var(--muted);
+        max-width: 620px;
+        margin: 0 auto 24px;
+        line-height: 1.8;
+        font-size: 14.5px;
+      ">
+        I plan, design and manage Instagram pages.
+        Here are real examples of what I changed and how the pages improved.
+      </p>
+
+      <!-- MAIN HERO MEDIA -->
+      <div class="img-block" style="min-height: 420px;">
+        HERO VIDEO / SCREEN RECORDING PLACEHOLDER
+        <br/><br/>
+        Replace with:
+        <br/>• portfolio reel video OR
+        <br/>• slideshow of before/after results
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="page">
+    <div class="wrap">
+
+      <p class="section-tag">ABOUT</p>
+
+      <div class="grid-2">
+
+        <!-- LEFT TEXT -->
+        <div>
+          <h2 class="h2">What I do</h2>
+
+          <p class="lead">
+            I manage and improve Instagram pages for small businesses and creators.
+            I focus on structure, design consistency, and content planning so the page
+            looks professional and easier to trust.
+          </p>
+
+          <p class="lead" style="margin-top:10px;">
+            No guesswork. No random posts. Just a clear system and steady improvement.
+          </p>
+
+
+          <div class="label">What you get</div>
+          <p class="meta">
+            • Profile setup (bio, highlights, pinned posts)<br/>
+            • Content plan (what to post weekly)<br/>
+            • Post templates and visual style<br/>
+            • Scheduling and basic performance tracking
+          </p>
+
+
+          <div class="label">Tools I use</div>
+          <p class="meta">
+            Canva • CapCut • Meta Business Suite • Google Drive
+          </p>
+        </div>
+
+
+        <!-- RIGHT IMAGE -->
+        <div>
+          <div class="img-block" style="min-height: 300px;">
+            PHOTO PLACEHOLDER<br/><br/>
+            (Use a clean portrait or laptop/workspace photo)
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="work" class="page">
+    <div class="wrap">
+
+      <p class="section-tag">WORK</p>
+
+      <!-- WORK INTRO -->
+      <div style="margin-bottom:18px;">
+        <h2 class="h2" style="margin-bottom:6px;">Case studies</h2>
+        <p class="lead" style="max-width: 75ch;">
+          Two examples showing what changed. Replace placeholders with real screenshots and results.
+        </p>
+      </div>
+
+      <!-- ===== PROJECT A ===== -->
+      <div class="grid-2" style="margin-top:18px; align-items:start;">
+        <div>
+          <div class="project-kicker">PROJECT A</div>
+
+          <div class="meta-row">
+            <div class="label">Client:</div>
+            <div class="meta">Client name (placeholder)</div>
+          </div>
+
+          <div class="meta-row">
+            <div class="label">Industry:</div>
+            <div class="meta">Industry (placeholder)</div>
+          </div>
+
+          <div class="meta-row">
+            <div class="label">Platform:</div>
+            <div class="meta">Instagram</div>
+          </div>
+
+          <div class="label">The problem</div>
+          <p class="meta">
+            Placeholder: what was wrong with the page? (Example: inconsistent design, unclear offer, no structure.)
+          </p>
+
+          <div class="label">What I did</div>
+          <p class="meta">
+            • Profile clean-up (bio + highlights + pinned posts)<br/>
+            • Content plan (weekly structure)<br/>
+            • Templates + improved visual consistency<br/>
+            • New posts/carousels to introduce the brand
+          </p>
+
+          <div class="label">Result</div>
+          <p class="meta">
+            Placeholder: write your result simply. If you have numbers, use them. If not, describe the improvement clearly.
+          </p>
+
+          <div style="margin-top:14px;" class="img-block">
+            EXTRA PROOF PLACEHOLDER (Project A)<br/>
+            (Screenshots of feed, templates, top post, insights)
+          </div>
+        </div>
+
+        <div>
+          <div class="media-row">
+            <div>
+              <div class="phone">PHONE PLACEHOLDER<br/>(Before)</div>
+              <div class="caption-under">BEFORE</div>
+            </div>
+            <div>
+              <div class="phone">PHONE PLACEHOLDER<br/>(After)</div>
+              <div class="caption-under">AFTER</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="img-block">
+            PROJECT A HERO IMAGE PLACEHOLDER<br/>
+            (Best screenshot of the redesigned feed)
+          </div>
+        </div>
+      </div>
+
+      <div style="height:28px;"></div>
+      <hr style="border:none;border-top:1px solid var(--line);opacity:.7;">
+      <div style="height:28px;"></div>
+
+      <!-- ===== PROJECT B ===== -->
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <div class="project-kicker">PROJECT B</div>
+
+          <div class="meta-row">
+            <div class="label">Client:</div>
+            <div class="meta">Client name (placeholder)</div>
+          </div>
+
+          <div class="meta-row">
+            <div class="label">Industry:</div>
+            <div class="meta">Industry (placeholder)</div>
+          </div>
+
+          <div class="meta-row">
+            <div class="label">Platform:</div>
+            <div class="meta">Instagram</div>
+          </div>
+
+          <div class="label">The problem</div>
+          <p class="meta">
+            Placeholder: what was wrong before?
+          </p>
+
+          <div class="label">What I did</div>
+          <p class="meta">
+            • Simple brand look (colors + fonts + style)<br/>
+            • Post templates + highlights covers<br/>
+            • Content calendar (what to post weekly)<br/>
+            • Improved copy and calls-to-action
+          </p>
+
+          <div class="label">Result</div>
+          <p class="meta">
+            Placeholder: what improved after?
+          </p>
+
+          <div style="margin-top:14px;" class="img-block">
+            EXTRA PROOF PLACEHOLDER (Project B)<br/>
+            (Screenshots of feed, templates, top post, insights)
+          </div>
+        </div>
+
+        <div>
+          <div class="media-row">
+            <div>
+              <div class="phone">PHONE PLACEHOLDER<br/>(Before)</div>
+              <div class="caption-under">BEFORE</div>
+            </div>
+            <div>
+              <div class="phone">PHONE PLACEHOLDER<br/>(After)</div>
+              <div class="caption-under">AFTER</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;" class="img-block">
+            PROJECT B HERO IMAGE PLACEHOLDER<br/>
+            (Best screenshot of the redesigned feed)
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION + CERTIFICATIONS -->
+  <section class="page">
+    <div class="wrap">
+      <div class="grid-2 equal">
+        <div class="reveal">
+          <h2 class="h2">Education</h2>
+          <p class="meta">
+            <strong>School / Program</strong> — Year (placeholder)<br/>
+            <strong>Course / Degree</strong> — Year (placeholder)
+          </p>
+
+          <div style="margin-top:16px;" class="img-block">
+            CERTIFICATE IMAGE PLACEHOLDER (optional)
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="h2">Certifications</h2>
+
+          <p class="meta"><strong>Canva</strong> (placeholder)</p>
+          <div class="badge-row">
+            <div class="badge">Badge 1</div>
+            <div class="badge">Badge 2</div>
+            <div class="badge">Badge 3</div>
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <p class="meta"><strong>Google</strong> (placeholder)</p>
+          <div class="img-block" style="min-height: 150px;">
+            CERT / LOGO PLACEHOLDER
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS / TIMELINE -->
+  <section id="process" class="page">
+    <div class="wrap">
+
+      <p class="section-tag">PROCESS</p>
+
+      <div class="timeline-wrap">
+
+        <!-- SIDE TITLE -->
+        <div class="timeline-side">How I work</div>
+
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+
+          <div class="t-item">
+            <h3 class="t-title">1. Quick call</h3>
+            <p class="t-text">
+              We discuss your business, goals, audience and what you want your page to achieve.
+            </p>
+          </div>
+
+
+          <div class="t-item">
+            <h3 class="t-title">2. Page audit</h3>
+            <p class="t-text">
+              I review your current page and list what needs fixing first — bio, highlights,
+              pinned posts, content gaps and design issues.
+            </p>
+          </div>
+
+
+          <div class="t-item">
+            <h3 class="t-title">3. Content plan</h3>
+            <p class="t-text">
+              I create a simple weekly structure so you always know what to post and why.
+              No random content.
+            </p>
+          </div>
+
+
+          <div class="t-item">
+            <h3 class="t-title">4. Design + setup</h3>
+            <p class="t-text">
+              Templates, highlights, profile layout and visual style are built so the page
+              looks clean and consistent.
+            </p>
+          </div>
+
+
+          <div class="t-item">
+            <h3 class="t-title">5. Post + improve</h3>
+            <p class="t-text">
+              We schedule content, track what performs, and adjust monthly to improve results.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="page">
+    <div class="wrap">
+
+      <p class="section-tag">CONTACT</p>
+
+      <div class="grid-2">
+        <!-- LEFT -->
+        <div>
+          <h2 class="h2">Contact</h2>
+
+          <p class="lead" style="max-width: 70ch;">
+            If you want your Instagram page to look professional and run consistently,
+            send a message. Include your niche and what you need help with.
+          </p>
+
+          <div class="label">Services</div>
+          <p class="meta">
+            • Instagram management<br/>
+            • Profile clean-up (bio, highlights, pinned posts)<br/>
+            • Content plan + templates<br/>
+            • Content calendar + scheduling
+          </p>
+
+          <div class="label">Reach me</div>
+          <div class="icons">
+            <!-- Replace the # links later -->
+            <a class="icon" href="#" onclick="alert('Add your Instagram link here');return false;" aria-label="Instagram">IG</a>
+            <a class="icon" href="#" onclick="alert('Add your WhatsApp link here');return false;" aria-label="WhatsApp">WA</a>
+            <a class="icon" href="#" onclick="alert('Add your LinkedIn link here');return false;" aria-label="LinkedIn">IN</a>
+
+            <span class="email-pill">your@email.com</span>
+          </div>
+
+          <p class="meta" style="margin-top:14px;">
+            Response time: within 24 hours (placeholder)
+          </p>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+          <div class="img-block" style="min-height: 300px;">
+            IMAGE PLACEHOLDER<br/><br/>
+            (Use a clean workspace photo or laptop shot)
+          </div>
+        </div>
+      </div>
+
+      <div class="big-faint">GET IN TOUCH</div>
+    </div>
+  </section>
+
+  <footer class="page" style="padding: 20px 0;">
+    <div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px;">
+      <div>© <span id="y"></span> Ellios Omokhoghele Marvellous.</div>
+      <div>Social media portfolio</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    const els = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
