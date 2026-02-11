@@ -377,11 +377,18 @@
     .email-pill{
       margin-left: 8px;
       font-size: 13px;
-      color: var(--muted);
+      color: var(--ink);
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 8px 12px;
-      background: rgba(255,255,255,.35);
+      background: rgba(255,255,255,.55);
+      text-decoration:none;
+      transition:.2s ease;
+    }
+
+    .email-pill:hover{
+      background:white;
+      transform: translateY(-1px);
     }
 
     .reveal{ opacity:0; transform: translateY(10px); transition: .6s ease; }
@@ -402,6 +409,72 @@
       .project-kicker{ font-size: 34px; }
       .phone, .caption-under{ width: 180px; }
     }
+
+    /* ---------- Mobile header fix ---------- */
+    .menu-btn{
+      display:none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.35);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px){
+      .topbar .row{
+        align-items:flex-start;
+        gap: 10px;
+      }
+
+      .brand{
+        flex: 1;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .brand strong{
+        font-size: 18px;
+        line-height: 1.15;
+        display:block;
+        max-width: 16ch; /* keeps it neat instead of stretching */
+      }
+
+      .brand span{
+        font-size: 12px;
+        line-height: 1.3;
+        display:block;
+        margin-top: 2px;
+      }
+
+      .menu-btn{ display:inline-flex; align-items:center; gap:8px; }
+
+      /* hide nav by default on mobile */
+      .nav{
+        display:none;
+        width:100%;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255,255,255,.35);
+      }
+
+      /* show nav when toggled */
+      .nav.open{
+        display:flex;
+      }
+
+      .nav a{
+        width: 100%;
+        justify-content: center;
+        text-align:center;
+        padding: 10px 12px;
+        border: 1px solid rgba(23,23,23,.10);
+        background: rgba(255,255,255,.35);
+      }
+    }
   </style>
 </head>
 
@@ -409,11 +482,16 @@
   <header class="topbar">
     <div class="wrap row">
       <div class="brand" aria-label="Site brand">
-        <strong>Ellios Omokhoghele Marvellous.</strong>
-        <span>• Social media portfolio</span>
+        <strong>Ellios Marvellous</strong>
+        <span>Social media manager</span>
       </div>
 
-      <nav class="nav" aria-label="Page navigation">
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="siteNav">
+        Menu
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="nav" id="siteNav" aria-label="Page navigation">
         <a href="#cover">Cover</a>
         <a href="#about">About</a>
         <a href="#work">Work</a>
@@ -484,6 +562,14 @@
 
         <!-- LEFT TEXT -->
         <div>
+          <p style="
+            font-family: var(--serif);
+            font-size: 22px;
+            margin: 0 0 8px;
+          ">
+            Ellios Omokhoghele Marvellous
+          </p>
+
           <h2 class="h2">What I do</h2>
 
           <p class="lead">
@@ -817,7 +903,12 @@
               </svg>
             </a>
 
-            <span class="email-pill">your@email.com</span>
+            <a
+              href="mailto:marvellousellios@gmail.com"
+              class="email-pill"
+            >
+              marvellousellios@gmail.com
+            </a>
           </div>
 
           <p class="meta" style="margin-top:14px;">
@@ -853,6 +944,25 @@
       entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menuBtn");
+    const siteNav = document.getElementById("siteNav");
+
+    if(menuBtn && siteNav){
+      menuBtn.addEventListener("click", () => {
+        const open = siteNav.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      // Close menu when a link is clicked
+      siteNav.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          siteNav.classList.remove("open");
+          menuBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
   </script>
 </body>
 </html>
